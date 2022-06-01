@@ -9,11 +9,17 @@ class Song:
     name: str
     artist: str
     has_video: bool = False
+    # default_factory lets you assign attribute with the result of a function
     featuring_artists: List[str] = field(default_factory=list)
-    id: str = field(init=False)
+    # you can assign private attributes
+    _id: str = field(init=False)
 
     def __post_init__(self) -> None:
-        self.id = f"{self.name} - {self.artist}"
+        self._id = f"{self.name} - {self.artist}"
+
+    @property
+    def id(self) -> str:
+        return self._id
 
 
 if __name__ == "__main__":
